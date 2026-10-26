@@ -76,6 +76,15 @@ def main():
 
     print(df_vendas.head())
     print(f"\nQuantidade de registros: {len(df_vendas)}")
+    
+    df_vendas.to_csv(
+        "vendas.csv",
+        index=False,
+        encoding="utf-8-sig",
+    )
+
+    print("\nDataset de vendas gerado com sucesso!")
+    print("Arquivo gerado: vendas.csv")
 
     df_vendas.to_csv(
         "vendas.csv",
