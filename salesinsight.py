@@ -41,3 +41,13 @@ def gerar_dataset_vendas(quantidade_vendas=200, semente=42):
 
      variacao_preco = np.random.uniform(0.90, 1.10)
      preco_unitario = round(preco_base * variacao_preco, 2)
+     data_venda = pd.Timestamp(
+            year=2025,
+            month=int(np.random.randint(1, 13)),
+            day=int(np.random.randint(1, 29)),<
+        )
+
+    if np.random.random() < 0.03:
+            data_venda = "DATA INVALIDA"
+
+    cliente = f"Cliente_{np.random.randint(1, 51):03d}"
