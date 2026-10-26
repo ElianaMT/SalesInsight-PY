@@ -32,3 +32,12 @@ def gerar_dataset_vendas(quantidade_vendas=200, semente=42):
 
     nomes_produtos = list(produtos.keys())
     vendas = []
+    
+    for i in range(quantidade_vendas):
+     produto = np.random.choice(nomes_produtos)
+     categoria, preco_base = produtos[produto]
+
+     quantidade = int(np.random.randint(1, 11))
+
+     variacao_preco = np.random.uniform(0.90, 1.10)
+     preco_unitario = round(preco_base * variacao_preco, 2)
