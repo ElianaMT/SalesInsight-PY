@@ -32,26 +32,28 @@ def gerar_dataset_vendas(quantidade_vendas=200, semente=42):
 
     nomes_produtos = list(produtos.keys())
     vendas = []
-    
+
     for i in range(quantidade_vendas):
-     produto = np.random.choice(nomes_produtos)
-     categoria, preco_base = produtos[produto]
+        produto = np.random.choice(nomes_produtos)
+        categoria, preco_base = produtos[produto]
 
-     quantidade = int(np.random.randint(1, 11))
+        quantidade = int(np.random.randint(1, 11))
 
-     variacao_preco = np.random.uniform(0.90, 1.10)
-     preco_unitario = round(preco_base * variacao_preco, 2)
-     data_venda = pd.Timestamp(
+        variacao_preco = np.random.uniform(0.90, 1.10)
+        preco_unitario = round(preco_base * variacao_preco, 2)
+
+        data_venda = pd.Timestamp(
             year=2025,
             month=int(np.random.randint(1, 13)),
-            day=int(np.random.randint(1, 29)),<
+            day=int(np.random.randint(1, 29)),
         )
 
-    if np.random.random() < 0.03:
+        if np.random.random() < 0.03:
             data_venda = "DATA INVALIDA"
 
-    cliente = f"Cliente_{np.random.randint(1, 51):03d}"
-    venda = {
+        cliente = f"Cliente_{np.random.randint(1, 51):03d}"
+
+        venda = {
             "id_venda": i + 1,
             "data_venda": data_venda,
             "produto": produto,
@@ -62,4 +64,6 @@ def gerar_dataset_vendas(quantidade_vendas=200, semente=42):
             "cliente": cliente,
         }
 
-    vendas.append(venda)
+        vendas.append(venda)
+
+    return pd.DataFrame(vendas)
