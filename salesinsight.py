@@ -51,3 +51,15 @@ def gerar_dataset_vendas(quantidade_vendas=200, semente=42):
             data_venda = "DATA INVALIDA"
 
     cliente = f"Cliente_{np.random.randint(1, 51):03d}"
+    venda = {
+            "id_venda": i + 1,
+            "data_venda": data_venda,
+            "produto": produto,
+            "categoria": categoria,
+            "quantidade": quantidade,
+            "preco_unitario": preco_unitario,
+            "regiao": np.random.choice(regioes),
+            "cliente": cliente,
+        }
+
+    vendas.append(venda)
