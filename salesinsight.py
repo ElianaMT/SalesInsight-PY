@@ -67,3 +67,25 @@ def gerar_dataset_vendas(quantidade_vendas=200, semente=42):
         vendas.append(venda)
 
     return pd.DataFrame(vendas)
+
+
+def main():
+    print("SalesInsight PY - Análise de Dados de Vendas")
+
+    df_vendas = gerar_dataset_vendas()
+
+    print(df_vendas.head())
+    print(f"\nQuantidade de registros: {len(df_vendas)}")
+
+    df_vendas.to_csv(
+        "vendas.csv",
+        index=False,
+        encoding="utf-8-sig",
+    )
+
+    print("\nDataset de vendas gerado com sucesso!")
+    print("Arquivo gerado: vendas.csv")
+
+
+if __name__ == "__main__":
+    main()
