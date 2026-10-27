@@ -358,6 +358,14 @@ def gerar_graficos_vendas(df_vendas):
 
     plt.savefig("outputs/graficos/receita_por_mes.png")
     plt.close()       
+    
+    top_produtos = (
+        df_vendas.groupby("produto")["receita_total"]
+        .sum()
+        .sort_values(ascending=False)
+        .head(5)
+        .sort_values()
+    )
 
 if __name__ == "__main__":
     main()
