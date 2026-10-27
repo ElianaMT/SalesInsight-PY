@@ -111,6 +111,13 @@ def main():
     
     print("\nAno da venda:")
     print(df_vendas[["data_venda", "ano"]].head())
+    
+    print("\nFaixa de receita por venda:")
+    print(
+        df_vendas[
+            ["receita_total", "faixa_receita_item"]
+        ].head()
+    )
 
     print("\nDados limpos exportados com sucesso!")
     print("Arquivo gerado: vendas_limpo.csv")
@@ -236,6 +243,25 @@ def transformar_dados_vendas(df_vendas):
     df_vendas["trimestre"] = df_vendas["data_venda"].dt.quarter
     
     df_vendas["ano"] = df_vendas["data_venda"].dt.year
+    
+    condicoes = [
+        df_vendas["receita_total"] < 500,
+        (df_vendas["receita_total"] >= 500)
+        & (df_vendas["receita_total"] < 2000),
+        df_vendas["receita_total"] >= 2000,
+    ]
+
+    faixas = [
+        "Baixa",
+        "Media",
+        "Alta",
+    ]
+
+    df_vendas["faixa_receita_item"] = np.select(
+        condicoes,
+        faixas,
+        default="Baixa",
+    )
 
 
     return df_vendas
