@@ -330,6 +330,8 @@ def segmentar_clientes(df_vendas):
     print(receita_por_cliente)
 
     return receita_por_cliente
+
+def gerar_graficos_vendas(df_vendas):
         
 
 if __name__ == "__main__":
