@@ -399,7 +399,27 @@ def gerar_graficos_vendas(df_vendas):
     plt.close()
     
     fig, eixos = plt.subplots(2, 2, figsize=(14, 10))
+    eixos[0, 1].bar(
+        top_produtos.index,
+        top_produtos.values,
+    )
+
+    eixos[0, 1].set_title("Top 5 produtos por receita")
+    eixos[0, 1].set_xlabel("Produto")
+    eixos[0, 1].set_ylabel("Receita total")
+    eixos[0, 1].tick_params(axis="x", rotation=45)
+
+
+    eixos[1, 0].scatter(
+        df_vendas["quantidade"],
+        df_vendas["receita_total"],
+    )
+
+    eixos[1, 0].set_title("Quantidade versus receita")
+    eixos[1, 0].set_xlabel("Quantidade")
+    eixos[1, 0].set_ylabel("Receita total")
     
+        
 if __name__ == "__main__":
     main()
     
