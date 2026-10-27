@@ -121,6 +121,14 @@ def inspecionar_dados(df_vendas):
 
     print("\nDataset de vendas gerado com sucesso!")
     print("Arquivo gerado: vendas.csv")
+    
+def limpar_dados_vendas(df_vendas):
+        df_vendas = df_vendas.copy()
+
+    df_vendas["data_venda"] = pd.to_datetime(
+        df_vendas["data_venda"],
+        errors="coerce",
+    )    
 
 if __name__ == "__main__":
     main()
