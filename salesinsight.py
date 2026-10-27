@@ -77,6 +77,9 @@ def main():
 def inspecionar_dados(df_vendas):
     print("Dimensoes do conjunto de dados:")
     print(df_vendas.shape)
+    
+    print("\nColunas do conjunto de dados:")
+    print(df_vendas.columns)
 
     print(df_vendas.head())
     print(f"\nQuantidade de registros: {len(df_vendas)}")
