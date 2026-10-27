@@ -100,6 +100,9 @@ def main():
         encoding="utf-8-sig",
     )
     
+    print("\nNome do mes da venda:")
+    print(df_vendas[["mes", "mes_nome"]].head())
+    
     print("\nMes da venda:")
     print(df_vendas[["data_venda", "mes"]].head())
 
@@ -207,6 +210,24 @@ def transformar_dados_vendas(df_vendas):
     )
 
     df_vendas["mes"] = df_vendas["data_venda"].dt.month
+    nomes_meses = {
+        1: "Janeiro",
+        2: "Fevereiro",
+        3: "Março",
+        4: "Abril",
+        5: "Maio",
+        6: "Junho",
+        7: "Julho",
+        8: "Agosto",
+        9: "Setembro",
+        10: "Outubro",
+        11: "Novembro",
+        12: "Dezembro",
+    }
+
+    df_vendas["mes_nome"] = df_vendas["mes"].map(nomes_meses)
+
+
     return df_vendas
 
 if __name__ == "__main__":
