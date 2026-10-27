@@ -122,6 +122,7 @@ def main():
     
     calcular_metricas_vendas(df_vendas)
     segmentar_clientes(df_vendas)
+    gerar_graficos_vendas(df_vendas)
 
     print("\nDados limpos exportados com sucesso!")
     print("Arquivo gerado: vendas_limpo.csv")
@@ -333,7 +334,30 @@ def segmentar_clientes(df_vendas):
     return receita_por_cliente
 
 def gerar_graficos_vendas(df_vendas):
-        
+
+    receita_mensal = (
+        df_vendas.groupby(["ano", "mes", "mes_nome"])["receita_total"]
+        .sum()
+        .reset_index()
+        .sort_values(["ano", "mes"])
+    )
+
+    plt.figure(figsize=(10, 5))
+
+    plt.plot(
+        receita_mensal["mes_nome"],
+        receita_mensal["receita_total"],
+        marker="o",
+    )
+
+    plt.title("Receita total por mes")
+    plt.xlabel("Mes")
+    plt.ylabel("Receita total")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    plt.savefig("outputs/graficos/receita_por_mes.png")
+    plt.close()       
 
 if __name__ == "__main__":
     main()
