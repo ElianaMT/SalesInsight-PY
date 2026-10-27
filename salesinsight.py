@@ -72,7 +72,8 @@ def gerar_dataset_vendas(quantidade_vendas=200, semente=42):
 def main():
     print("SalesInsight PY - Análise de Dados de Vendas")
 
-    df_vendas = gerar_dataset_vendas()
+    df_vendas = gerar_dataset_vendas()  
+    inspecionar_dados(df_vendas)
     
 def inspecionar_dados(df_vendas):
     print("Dimensoes do conjunto de dados:")
