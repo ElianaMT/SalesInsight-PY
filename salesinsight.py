@@ -90,6 +90,15 @@ def main():
     
     df_vendas = limpar_dados_vendas(df_vendas)
     
+    df_vendas.to_csv(
+        "vendas_limpo.csv",
+        index=False,
+        encoding="utf-8-sig",
+    )
+
+    print("\nDados limpos exportados com sucesso!")
+    print("Arquivo gerado: vendas_limpo.csv")
+    
 def inspecionar_dados(df_vendas):
     print("Dimensoes do conjunto de dados:")
     print(df_vendas.shape)
