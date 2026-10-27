@@ -123,12 +123,20 @@ def inspecionar_dados(df_vendas):
     print("Arquivo gerado: vendas.csv")
     
 def limpar_dados_vendas(df_vendas):
-        df_vendas = df_vendas.copy()
+    df_vendas = df_vendas.copy()
 
     df_vendas["data_venda"] = pd.to_datetime(
-        df_vendas["data_venda"],
+    df_vendas["data_venda"],
         errors="coerce",
-    )    
+    )  
+    
+    quantidade_inicial = len(df_vendas)
+
+    df_vendas = df_vendas.dropna(
+        subset=["data_venda"]
+    ).copy()
+
+    quantidade_removida = quantidade_inicial - len(df_vendas)  
 
 if __name__ == "__main__":
     main()
