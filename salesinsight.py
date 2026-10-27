@@ -277,6 +277,16 @@ def calcular_metricas_vendas(df_vendas):
 
     print("\nReceita total por mes:")
     print(vendas_por_mes)
+    
+    vendas_por_produto = (
+        df_vendas.groupby("produto")["receita_total"]
+        .sum()
+        .sort_values(ascending=False)
+        .head(5)
+    )
+
+    print("\nTop 5 produtos por receita:")
+    print(vendas_por_produto)
 
 if __name__ == "__main__":
     main()
