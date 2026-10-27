@@ -398,6 +398,8 @@ def gerar_graficos_vendas(df_vendas):
     plt.savefig("outputs/graficos/quantidade_vs_receita.png")
     plt.close()
     
+    fig, eixos = plt.subplots(2, 2, figsize=(14, 10))
+    
 if __name__ == "__main__":
     main()
     
