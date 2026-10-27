@@ -151,6 +151,18 @@ def limpar_dados_vendas(df_vendas):
             .astype("string")
             .str.strip()
         )
+        
+        colunas_numericas = [
+        "id_venda",
+        "quantidade",
+        "preco_unitario",
+    ]
+
+    for coluna in colunas_numericas:
+        df_vendas[coluna] = pd.to_numeric(
+            df_vendas[coluna],
+            errors="coerce",
+        )
 
 if __name__ == "__main__":
     main()
