@@ -70,6 +70,15 @@ def gerar_dataset_vendas(quantidade_vendas=200, semente=42):
     return pd.DataFrame(vendas)
 
 
+
+def processar_coluna(df, coluna, funcao_transformacao, nome_saida=None):
+   
+    nome_saida = nome_saida or f"{coluna}_transformado"
+    df[nome_saida] = df[coluna].apply(funcao_transformacao)
+    return df
+
+
+
 def main():
     print("SalesInsight PY - Análise de Dados de Vendas")
 
