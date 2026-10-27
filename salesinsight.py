@@ -118,6 +118,8 @@ def main():
             ["receita_total", "faixa_receita_item"]
         ].head()
     )
+    
+    calcular_metricas_vendas(df_vendas)
 
     print("\nDados limpos exportados com sucesso!")
     print("Arquivo gerado: vendas_limpo.csv")
@@ -265,6 +267,16 @@ def transformar_dados_vendas(df_vendas):
 
 
     return df_vendas
+
+def calcular_metricas_vendas(df_vendas):
+    vendas_por_mes = (
+        df_vendas.groupby(["ano", "mes", "mes_nome"])["receita_total"]
+        .sum()
+        .reset_index()
+    )
+
+    print("\nReceita total por mes:")
+    print(vendas_por_mes)
 
 if __name__ == "__main__":
     main()
