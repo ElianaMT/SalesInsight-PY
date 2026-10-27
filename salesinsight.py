@@ -88,6 +88,8 @@ def main():
 
     inspecionar_dados(df_vendas)
     
+    df_vendas = limpar_dados_vendas(df_vendas)
+    
 def inspecionar_dados(df_vendas):
     print("Dimensoes do conjunto de dados:")
     print(df_vendas.shape)
@@ -177,6 +179,8 @@ def limpar_dados_vendas(df_vendas):
     print(f"Quantidade inicial de registros: {quantidade_inicial}")
     print(f"Registros removidos por data invalida: {quantidade_removida}")
     print(f"Quantidade final de registros: {quantidade_final}")
+    
+    return df_vendas
 
 if __name__ == "__main__":
     main()
