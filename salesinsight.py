@@ -296,6 +296,15 @@ def calcular_metricas_vendas(df_vendas):
 
     print("\nReceita total por categoria:")
     print(vendas_por_categoria)
+    
+    vendas_por_regiao = (
+            df_vendas.groupby("regiao")["receita_total"]
+            .sum()
+            .sort_values(ascending=False)
+        )
+    
+    print("\nReceita total por regiao:")
+    print(vendas_por_regiao)
 
 if __name__ == "__main__":
     main()
