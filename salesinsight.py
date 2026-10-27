@@ -83,6 +83,9 @@ def inspecionar_dados(df_vendas):
     
     print("\nTipos de dados:")
     print(df_vendas.dtypes)
+    
+    print("\nValores nulos por coluna:")
+    print(df_vendas.isnull().sum())
 
     print(df_vendas.head())
     print(f"\nQuantidade de registros: {len(df_vendas)}")
