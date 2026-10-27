@@ -100,7 +100,39 @@ def main():
     
     df_vendas = limpar_dados_vendas(df_vendas)
 
-    df_vendas = transformar_dados_vendas(df_vendas)
+    df_vendas = transformar_dados_vendas(df_vendas) 
+    
+    
+    df_vendas = processar_coluna(
+        df_vendas,
+        "receita_total",
+        lambda x: round(x / 1000, 2),
+        nome_saida="receita_em_milhares",
+    )
+
+    df_vendas = processar_coluna(
+        df_vendas,
+        "quantidade",
+        lambda q: "Alto Volume" if q > 5 else "Baixo Volume",
+        nome_saida="perfil_volume",
+    )
+    
+    
+    print("\nReceita em milhares:")
+    print(
+        df_vendas[
+            ["receita_total", "receita_em_milhares"]
+        ].head()
+    )
+
+    print("\nPerfil de volume:")
+    print(
+        df_vendas[
+            ["quantidade", "perfil_volume"]
+        ].head()
+    )
+
+
 
     print("\nReceita total por venda:")
     print(df_vendas[["id_venda", "quantidade", "preco_unitario", "receita_total"]].head())    
