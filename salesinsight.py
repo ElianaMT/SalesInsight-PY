@@ -108,6 +108,9 @@ def main():
     
     print("\nTrimestre da venda:")
     print(df_vendas[["data_venda", "trimestre"]].head())
+    
+    print("\nAno da venda:")
+    print(df_vendas[["data_venda", "ano"]].head())
 
     print("\nDados limpos exportados com sucesso!")
     print("Arquivo gerado: vendas_limpo.csv")
@@ -231,6 +234,8 @@ def transformar_dados_vendas(df_vendas):
     df_vendas["mes_nome"] = df_vendas["mes"].map(nomes_meses)
     
     df_vendas["trimestre"] = df_vendas["data_venda"].dt.quarter
+    
+    df_vendas["ano"] = df_vendas["data_venda"].dt.year
 
 
     return df_vendas
