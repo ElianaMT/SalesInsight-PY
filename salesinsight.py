@@ -366,7 +366,22 @@ def gerar_graficos_vendas(df_vendas):
         .head(5)
         .sort_values()
     )
+    plt.figure(figsize=(10, 5))
 
+    plt.bar(
+        top_produtos.index,
+        top_produtos.values,
+    )
+
+    plt.title("Top 5 produtos por receita")
+    plt.xlabel("Produto")
+    plt.ylabel("Receita total")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    plt.savefig("outputs/graficos/top_produtos.png")
+    plt.close()
+    
 if __name__ == "__main__":
     main()
     
