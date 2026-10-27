@@ -409,6 +409,17 @@ def gerar_graficos_vendas(df_vendas):
         top_produtos.index,
         top_produtos.values,
     )
+    
+    eixos[0, 0].plot(
+        receita_mensal["mes_nome"],
+        receita_mensal["receita_total"],
+        marker="o",
+    )
+
+    eixos[0, 0].set_title("Receita por mes")
+    eixos[0, 0].set_xlabel("Mes")
+    eixos[0, 0].set_ylabel("Receita total")
+    eixos[0, 0].tick_params(axis="x", rotation=45)
 
     eixos[0, 1].set_title("Top 5 produtos por receita")
     eixos[0, 1].set_xlabel("Produto")
@@ -434,6 +445,10 @@ def gerar_graficos_vendas(df_vendas):
     eixos[1, 1].set_xlabel("Categoria")
     eixos[1, 1].set_ylabel("Receita total")
     
+    
+    fig.tight_layout()
+    fig.savefig("outputs/graficos/painel_resumo.png")
+    plt.close(fig)
         
 if __name__ == "__main__":
     main()
