@@ -137,6 +137,20 @@ def limpar_dados_vendas(df_vendas):
     ).copy()
 
     quantidade_removida = quantidade_inicial - len(df_vendas)  
+    
+    colunas_texto = [
+        "produto",
+        "categoria",
+        "regiao",
+        "cliente",
+    ]
+
+    for coluna in colunas_texto:
+        df_vendas[coluna] = (
+            df_vendas[coluna]
+            .astype("string")
+            .str.strip()
+        )
 
 if __name__ == "__main__":
     main()
