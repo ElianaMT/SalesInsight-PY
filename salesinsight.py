@@ -308,13 +308,23 @@ def calcular_metricas_vendas(df_vendas):
     print(vendas_por_regiao)
     
 def segmentar_clientes(df_vendas):
-    """Classifica os clientes conforme a receita total."""
 
     receita_por_cliente = (
         df_vendas.groupby("cliente")["receita_total"]
         .sum()
         .reset_index()
     ) 
+    
+    receita_por_cliente["segmento"] = receita_por_cliente[
+        "receita_total"
+    ].apply(
+        lambda receita: (
+            "Bronze" if receita < 5000
+            else "Prata" if receita <= 15000
+            else "Ouro"
+        )
+    )
+
 
     print("\nSegmentacao de clientes:")
     print(receita_por_cliente)
