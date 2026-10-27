@@ -99,6 +99,9 @@ def main():
         index=False,
         encoding="utf-8-sig",
     )
+    
+    print("\nMes da venda:")
+    print(df_vendas[["data_venda", "mes"]].head())
 
     print("\nDados limpos exportados com sucesso!")
     print("Arquivo gerado: vendas_limpo.csv")
@@ -203,6 +206,7 @@ def transformar_dados_vendas(df_vendas):
         df_vendas["quantidade"] * df_vendas["preco_unitario"]
     )
 
+    df_vendas["mes"] = df_vendas["data_venda"].dt.month
     return df_vendas
 
 if __name__ == "__main__":
