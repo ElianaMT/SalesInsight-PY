@@ -170,6 +170,13 @@ def limpar_dados_vendas(df_vendas):
 
     print("\nValores nulos nas colunas numericas:")
     print(valores_nulos_numericos)
+    
+    quantidade_final = len(df_vendas)
+
+    print("\nRelatorio de limpeza:")
+    print(f"Quantidade inicial de registros: {quantidade_inicial}")
+    print(f"Registros removidos por data invalida: {quantidade_removida}")
+    print(f"Quantidade final de registros: {quantidade_final}")
 
 if __name__ == "__main__":
     main()
