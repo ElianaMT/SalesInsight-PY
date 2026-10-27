@@ -80,6 +80,9 @@ def inspecionar_dados(df_vendas):
     
     print("\nColunas do conjunto de dados:")
     print(df_vendas.columns)
+    
+    print("\nTipos de dados:")
+    print(df_vendas.dtypes)
 
     print(df_vendas.head())
     print(f"\nQuantidade de registros: {len(df_vendas)}")
