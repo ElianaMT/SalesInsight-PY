@@ -8,6 +8,8 @@ Projeto avaliativo - Módulo 01 - Semana 07.
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import json
+import os
 
 
 def gerar_dataset_vendas(quantidade_vendas=200, semente=42):
@@ -77,6 +79,43 @@ def processar_coluna(df, coluna, funcao_transformacao, nome_saida=None):
     df[nome_saida] = df[coluna].apply(funcao_transformacao)
     return df
 
+
+def exportar_resultados(metricas, clientes, estatisticas):
+    
+    os.makedirs("outputs", exist_ok=True)
+
+    metricas["por_mes"].to_csv(
+        "outputs/metricas_por_mes.csv",
+        index=False,
+        encoding="utf-8-sig",
+    )
+
+    clientes.to_csv(
+        "outputs/segmentacao_clientes.csv",
+        index=False,
+        encoding="utf-8-sig",
+    )
+
+    serializavel = {
+        k: round(float(v), 2)
+        for k, v in estatisticas.items()
+    }
+
+    caminho = "outputs/estatisticas_gerais.json"
+
+    with open(caminho, "w", encoding="utf-8") as f:
+        json.dump(
+            serializavel,
+            f,
+            indent=4,
+            ensure_ascii=False,
+        )
+
+    with open(caminho, "r", encoding="utf-8") as f:
+        conferencia = json.load(f)
+
+    print("\nEstatisticas gerais exportadas:")
+    print(conferencia)
 
 
 def main():
