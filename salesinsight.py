@@ -163,6 +163,13 @@ def limpar_dados_vendas(df_vendas):
             df_vendas[coluna],
             errors="coerce",
         )
+        
+        valores_nulos_numericos = df_vendas[
+        colunas_numericas
+    ].isnull().sum()
+
+    print("\nValores nulos nas colunas numericas:")
+    print(valores_nulos_numericos)
 
 if __name__ == "__main__":
     main()
