@@ -382,6 +382,22 @@ def gerar_graficos_vendas(df_vendas):
     plt.savefig("outputs/graficos/top_produtos.png")
     plt.close()
     
+    
+    plt.figure(figsize=(10, 5))
+
+    plt.scatter(
+        df_vendas["quantidade"],
+        df_vendas["receita_total"],
+    )
+
+    plt.title("Quantidade versus receita total")
+    plt.xlabel("Quantidade")
+    plt.ylabel("Receita total")
+    plt.tight_layout()
+
+    plt.savefig("outputs/graficos/quantidade_vs_receita.png")
+    plt.close()
+    
 if __name__ == "__main__":
     main()
     
