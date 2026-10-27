@@ -72,27 +72,37 @@ def gerar_dataset_vendas(quantidade_vendas=200, semente=42):
 def main():
     print("SalesInsight PY - Análise de Dados de Vendas")
 
-    df_vendas = gerar_dataset_vendas()  
+    df_vendas = gerar_dataset_vendas()
+
+    print(df_vendas.head())
+    print(f"\nQuantidade de registros: {len(df_vendas)}")
+
+    df_vendas.to_csv(
+        "vendas.csv",
+        index=False,
+        encoding="utf-8-sig",
+    )
+
+    print("\nDataset de vendas gerado com sucesso!")
+    print("Arquivo gerado: vendas.csv")
+
     inspecionar_dados(df_vendas)
     
 def inspecionar_dados(df_vendas):
     print("Dimensoes do conjunto de dados:")
     print(df_vendas.shape)
-    
+
     print("\nColunas do conjunto de dados:")
     print(df_vendas.columns)
-    
+
     print("\nTipos de dados:")
     print(df_vendas.dtypes)
-    
+
     print("\nValores nulos por coluna:")
     print(df_vendas.isnull().sum())
-    
+
     print("\nPrimeiras cinco linhas:")
     print(df_vendas.head())
-
-    print(df_vendas.head())
-    print(f"\nQuantidade de registros: {len(df_vendas)}")
     
     df_vendas.to_csv(
         "vendas.csv",
@@ -111,7 +121,8 @@ def inspecionar_dados(df_vendas):
 
     print("\nDataset de vendas gerado com sucesso!")
     print("Arquivo gerado: vendas.csv")
-
 
 if __name__ == "__main__":
     main()
+    
+   
