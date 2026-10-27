@@ -89,7 +89,11 @@ def main():
     inspecionar_dados(df_vendas)
     
     df_vendas = limpar_dados_vendas(df_vendas)
-    
+
+    df_vendas = transformar_dados_vendas(df_vendas)
+
+    print("\nReceita total por venda:")
+    print(df_vendas[["id_venda", "quantidade", "preco_unitario", "receita_total"]].head())    
     df_vendas.to_csv(
         "vendas_limpo.csv",
         index=False,
