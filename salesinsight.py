@@ -191,6 +191,16 @@ def limpar_dados_vendas(df_vendas):
     
     return df_vendas
 
+def transformar_dados_vendas(df_vendas):
+    
+    df_vendas = df_vendas.copy()
+
+    df_vendas["receita_total"] = (
+        df_vendas["quantidade"] * df_vendas["preco_unitario"]
+    )
+
+    return df_vendas
+
 if __name__ == "__main__":
     main()
     
