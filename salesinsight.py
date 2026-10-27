@@ -120,6 +120,7 @@ def main():
     )
     
     calcular_metricas_vendas(df_vendas)
+    segmentar_clientes(df_vendas)
 
     print("\nDados limpos exportados com sucesso!")
     print("Arquivo gerado: vendas_limpo.csv")
@@ -305,6 +306,21 @@ def calcular_metricas_vendas(df_vendas):
     
     print("\nReceita total por regiao:")
     print(vendas_por_regiao)
+    
+def segmentar_clientes(df_vendas):
+    """Classifica os clientes conforme a receita total."""
+
+    receita_por_cliente = (
+        df_vendas.groupby("cliente")["receita_total"]
+        .sum()
+        .reset_index()
+    ) 
+
+    print("\nSegmentacao de clientes:")
+    print(receita_por_cliente)
+
+    return receita_por_cliente
+        
 
 if __name__ == "__main__":
     main()
