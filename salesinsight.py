@@ -334,6 +334,26 @@ def segmentar_clientes(df_vendas):
     return receita_por_cliente
 
 def gerar_graficos_vendas(df_vendas):
+    
+    plt.style.use("seaborn-v0_8-whitegrid")
+
+    plt.rcParams.update({
+        "figure.facecolor": "#F5F7FA",
+        "axes.facecolor": "#FFFFFF",
+        "axes.edgecolor": "#D9E2EC",
+        "axes.labelcolor": "#344054",
+        "text.color": "#1D2939",
+        "xtick.color": "#475467",
+        "ytick.color": "#475467",
+        "axes.titleweight": "bold",
+        "axes.titlesize": 13,
+        "axes.labelsize": 10,
+        "font.size": 10,
+        "grid.color": "#E4E7EC",
+        "grid.linestyle": "--",
+        "grid.alpha": 0.7,
+        "figure.titlesize": 18,
+    })
 
     receita_mensal = (
         df_vendas.groupby(["ano", "mes", "mes_nome"])["receita_total"]
