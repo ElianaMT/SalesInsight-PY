@@ -398,6 +398,12 @@ def gerar_graficos_vendas(df_vendas):
     plt.savefig("outputs/graficos/quantidade_vs_receita.png")
     plt.close()
     
+    vendas_por_categoria = (
+        df_vendas.groupby("categoria")["receita_total"]
+        .sum()
+        .sort_values(ascending=False)
+    )
+    
     fig, eixos = plt.subplots(2, 2, figsize=(14, 10))
     eixos[0, 1].bar(
         top_produtos.index,
@@ -418,6 +424,15 @@ def gerar_graficos_vendas(df_vendas):
     eixos[1, 0].set_title("Quantidade versus receita")
     eixos[1, 0].set_xlabel("Quantidade")
     eixos[1, 0].set_ylabel("Receita total")
+    
+    eixos[1, 1].bar(
+        vendas_por_categoria.index,
+        vendas_por_categoria.values,
+    )
+
+    eixos[1, 1].set_title("Receita por categoria")
+    eixos[1, 1].set_xlabel("Categoria")
+    eixos[1, 1].set_ylabel("Receita total")
     
         
 if __name__ == "__main__":
