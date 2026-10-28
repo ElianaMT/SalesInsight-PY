@@ -242,7 +242,6 @@ def inspecionar_dados(df_vendas):
 
     print("\nDataset de vendas gerado com sucesso!")
     print("Arquivo gerado: vendas.csv")
-
   
     
 def limpar_dados_vendas(df_vendas):
@@ -424,7 +423,7 @@ def segmentar_clientes(df_vendas):
     return receita_por_cliente
 
 def gerar_graficos_vendas(df_vendas):
-    
+    os.makedirs("outputs/graficos", exist_ok=True)    
     plt.style.use("seaborn-v0_8-whitegrid")
 
     plt.rcParams.update({
