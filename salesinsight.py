@@ -743,10 +743,22 @@ def gerar_graficos_vendas(df_vendas):
     eixos[0, 1].tick_params(axis="x", rotation=45)
 
 
-    eixos[1, 0].scatter(
-        df_vendas["quantidade"],
-        df_vendas["receita_total"],
-    )
+    
+    for indice, categoria in enumerate(categorias):
+        dados_categoria = df_vendas[
+            df_vendas["categoria"] == categoria
+        ]
+
+        eixos[1, 0].scatter(
+            dados_categoria["quantidade"],
+            dados_categoria["receita_total"],
+            color=cores[indice % len(cores)],
+            label=categoria,
+            alpha=0.8,
+        )
+
+    eixos[1, 0].legend(title="Categoria")
+
 
     eixos[1, 0].set_title("Quantidade versus receita")
     eixos[1, 0].set_xlabel("Quantidade")
