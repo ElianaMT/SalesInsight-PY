@@ -267,8 +267,9 @@ def inspecionar_dados(df_vendas):
     print("\nDataset de vendas gerado com sucesso!")
     print("Arquivo gerado: vendas.csv")
   
-    
 def limpar_dados_vendas(df_vendas):
+    """Limpa os dados de vendas e remove datas inválidas."""
+
     df_vendas = df_vendas.copy()
 
     df_vendas["data_venda"] = pd.to_datetime(
@@ -329,7 +330,8 @@ def limpar_dados_vendas(df_vendas):
     return df_vendas
 
 def transformar_dados_vendas(df_vendas):
-    
+    """Cria colunas derivadas para a análise das vendas."""
+
     df_vendas = df_vendas.copy()
 
     df_vendas["receita_total"] = (
