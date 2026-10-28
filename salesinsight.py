@@ -200,8 +200,15 @@ def main():
         ].head()
     )
     
-    calcular_metricas_vendas(df_vendas)
-    segmentar_clientes(df_vendas)
+    metricas = calcular_metricas_vendas(df_vendas)
+    clientes = segmentar_clientes(df_vendas)
+    
+    estatisticas = {
+        "quantidade_vendas": len(df_vendas),
+        "receita_total": df_vendas["receita_total"].sum(),
+        "ticket_medio": df_vendas["receita_total"].mean(),
+    }
+
     gerar_graficos_vendas(df_vendas)
 
     print("\nDados limpos exportados com sucesso!")
@@ -388,6 +395,10 @@ def calcular_metricas_vendas(df_vendas):
     
     print("\nReceita total por regiao:")
     print(vendas_por_regiao)
+    
+    return {
+        "por_mes": vendas_por_mes,
+    }
     
 def segmentar_clientes(df_vendas):
 
