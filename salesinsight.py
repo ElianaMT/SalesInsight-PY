@@ -286,7 +286,8 @@ def main():
     inspecionar_dados(analisador.df_bruto)
 
     analisador.transformar()
-
+    
+    
     processar_coluna(
         analisador.df_limpo,
         "receita_total",
@@ -465,24 +466,26 @@ def transformar_dados_vendas(df_vendas):
     
     df_vendas["ano"] = df_vendas["data_venda"].dt.year
     
+    
     condicoes = [
         df_vendas["receita_total"] < 500,
         (df_vendas["receita_total"] >= 500)
-        & (df_vendas["receita_total"] < 2000),
-        df_vendas["receita_total"] >= 2000,
+        & (df_vendas["receita_total"] < 5000),
+        df_vendas["receita_total"] >= 5000,
     ]
 
     categorias = [
-    "Baixo Valor",
-    "Medio Valor",
-    "Alto Valor",
-]
+        "Baixo Valor",
+        "Medio Valor",
+        "Alto Valor",
+    ]
 
     df_vendas["faixa_receita_item"] = np.select(
         condicoes,
         categorias,
-        default="Baixa",
+        default="Baixo Valor",
     )
+
 
 
     return df_vendas
