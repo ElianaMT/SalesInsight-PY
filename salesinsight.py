@@ -555,8 +555,9 @@ def gerar_graficos_vendas(df_vendas):
     eixos[1, 1].set_ylabel("Receita total")
     
     
-    fig.tight_layout()
-    fig.savefig("outputs/graficos/painel_resumo.png")
+    fig.suptitle("SalesInsight PY - Painel Resumo", fontsize=16)
+    fig.tight_layout(rect=[0, 0, 1, 0.96])
+    fig.savefig("outputs/graficos/painel_resumo.png", dpi=150)
     plt.close(fig)
         
 if __name__ == "__main__":
