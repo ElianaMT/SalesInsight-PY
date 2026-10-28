@@ -161,6 +161,23 @@ def visualizar(self):
         """Gera os gráficos de análise de vendas."""
 
         gerar_graficos_vendas(self.df_limpo)
+        
+def resumo(self):
+        """Apresenta um resumo final da análise de vendas."""
+
+        print("\nResumo da Análise de Vendas")
+        print("-" * 35)
+
+        print(f"Total de registros originais: {len(self.df_bruto)}")
+        print(f"Total de registros analisados: {len(self.df_limpo)}")
+
+        print(
+            f"Receita total: "
+            f"R$ {self.df_limpo['receita_total'].sum():.2f}"
+        )
+
+        print("\nDistribuição dos clientes por segmento:")
+        print(self.clientes["segmento"].value_counts())
 
 def main():
     print("SalesInsight PY - Análise de Dados de Vendas")
