@@ -208,6 +208,10 @@ def main():
         "receita_total": df_vendas["receita_total"].sum(),
         "ticket_medio": df_vendas["receita_total"].mean(),
     }
+    
+    
+    exportar_resultados(metricas, clientes, estatisticas)
+
 
     gerar_graficos_vendas(df_vendas)
 
