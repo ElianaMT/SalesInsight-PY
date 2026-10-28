@@ -12,8 +12,20 @@ import json
 import os
 
 
+
 def gerar_dataset_vendas(quantidade_vendas=200, semente=42):
+    """Gera um DataFrame sintético de vendas.
+
+    Args:
+        quantidade_vendas: Número de vendas a gerar.
+        semente: Semente para reproduzir os resultados aleatórios.
+
+    Returns:
+        DataFrame com os dados de vendas gerados.
+    """
+
     np.random.seed(semente)
+
 
     produtos = {
         "Notebook": ("Computadores", 3500.00),
@@ -85,7 +97,10 @@ def processar_coluna(df, coluna, funcao_transformacao, nome_saida=None):
 
 
 
+
 def exportar_resultados(metricas, clientes, estatisticas):
+    """Exporta métricas e estatísticas para arquivos CSV e JSON."""
+
     
     os.makedirs("outputs", exist_ok=True)
 
@@ -242,7 +257,12 @@ def main():
 
     analisador.resumo()
     
+
 def inspecionar_dados(df_vendas):
+    """Exibe as dimensões, colunas, tipos e valores nulos dos dados."""
+
+    print("Dimensoes do conjunto de dados:")
+
     print("Dimensoes do conjunto de dados:")
     print(df_vendas.shape)
 
@@ -383,8 +403,14 @@ def transformar_dados_vendas(df_vendas):
     return df_vendas
 
 
+
 def calcular_metricas_vendas(df_vendas):
-    """Calcula as métricas agregadas das vendas."""
+    """Calcula métricas agregadas por mês, produto, categoria e região.
+
+    Returns:
+        Dicionário com DataFrames das quatro métricas calculadas.
+    """
+
 
     vendas_por_mes = (
         df_vendas.groupby(["ano", "mes", "mes_nome"])
@@ -479,6 +505,7 @@ def segmentar_clientes(df_vendas):
 
 
 def gerar_graficos_vendas(df_vendas):
+    """Gera e salva gráficos de vendas em arquivos PNG."""
     os.makedirs("outputs/graficos", exist_ok=True)    
     plt.style.use("seaborn-v0_8-whitegrid")
 
