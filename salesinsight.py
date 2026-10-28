@@ -541,26 +541,47 @@ def gerar_graficos_vendas(df_vendas):
     plt.close()
     
     
-    plt.figure(figsize=(10, 5))
-
-    plt.scatter(
-        df_vendas["quantidade"],
-        df_vendas["receita_total"],
-    )
-
-    plt.title("Quantidade versus receita total")
-    plt.xlabel("Quantidade")
-    plt.ylabel("Receita total")
-    plt.tight_layout()
-
-    plt.savefig("outputs/graficos/quantidade_vs_receita.png")
-    plt.close()
     
-    vendas_por_categoria = (
-        df_vendas.groupby("categoria")["receita_total"]
-        .sum()
-        .sort_values(ascending=False)
+    fig, ax = plt.subplots(figsize=(10, 5))
+
+
+    categorias = df_vendas["categoria"].unique()
+    cores = plt.cm.Set2.colors
+
+    fig, ax = plt.subplots(figsize=(10, 5))
+
+    for indice, categoria in enumerate(categorias):
+        dados_categoria = df_vendas[
+            df_vendas["categoria"] == categoria
+        ]
+
+        ax.scatter(
+            dados_categoria["quantidade"],
+            dados_categoria["receita_total"],
+            color=cores[indice % len(cores)],
+            label=categoria,
+            alpha=0.8
+        )
+
+    ax.set_title("Quantidade versus receita total por categoria")
+    ax.set_xlabel("Quantidade")
+    ax.set_ylabel("Receita total")
+    ax.legend(title="Categoria")
+
+    fig.tight_layout()
+    fig.savefig(
+        "outputs/graficos/quantidade_vs_receita.png",
+        dpi=150
     )
+    plt.close(fig)
+
+
+    
+    vendas_por_regiao = (
+    df_vendas.groupby("regiao")["receita_total"]
+    .sum()
+    .sort_values(ascending=False)
+)
     
     fig, eixos = plt.subplots(2, 2, figsize=(14, 10))
     eixos[0, 1].bar(
@@ -594,14 +615,18 @@ def gerar_graficos_vendas(df_vendas):
     eixos[1, 0].set_xlabel("Quantidade")
     eixos[1, 0].set_ylabel("Receita total")
     
+
     eixos[1, 1].bar(
-        vendas_por_categoria.index,
-        vendas_por_categoria.values,
+        vendas_por_regiao.index,
+        vendas_por_regiao.values,
+        color="#2A9D8F"
     )
 
-    eixos[1, 1].set_title("Receita por categoria")
-    eixos[1, 1].set_xlabel("Categoria")
+    eixos[1, 1].set_title("Receita por regiao")
+    eixos[1, 1].set_xlabel("Regiao")
     eixos[1, 1].set_ylabel("Receita total")
+    eixos[1, 1].tick_params(axis="x", rotation=45)
+
     
     
     fig.suptitle("SalesInsight PY - Painel Resumo", fontsize=16)
