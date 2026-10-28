@@ -353,15 +353,7 @@ def inspecionar_dados(df_vendas):
     print("\nPrimeiras cinco linhas:")
     print(df_vendas.head())
     
-    df_vendas.to_csv(
-        "vendas.csv",
-        index=False,
-        encoding="utf-8-sig",
-    )
-
-    print("\nDataset de vendas gerado com sucesso!")
-    print("Arquivo gerado: vendas.csv")
-  
+   
 def limpar_dados_vendas(df_vendas):
     """Limpa os dados de vendas e remove datas inválidas.
 
