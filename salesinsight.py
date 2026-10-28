@@ -73,11 +73,16 @@ def gerar_dataset_vendas(quantidade_vendas=200, semente=42):
 
 
 
+
 def processar_coluna(df, coluna, funcao_transformacao, nome_saida=None):
-   
+    """Aplica uma função de transformação a uma coluna do DataFrame."""
+
     nome_saida = nome_saida or f"{coluna}_transformado"
+
     df[nome_saida] = df[coluna].apply(funcao_transformacao)
+
     return df
+
 
 
 def exportar_resultados(metricas, clientes, estatisticas):
