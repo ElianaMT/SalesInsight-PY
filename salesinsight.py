@@ -275,14 +275,15 @@ def limpar_dados_vendas(df_vendas):
         "cliente",
     ]
 
+ 
     for coluna in colunas_texto:
         df_vendas[coluna] = (
             df_vendas[coluna]
             .astype("string")
             .str.strip()
         )
-        
-        colunas_numericas = [
+
+    colunas_numericas = [
         "id_venda",
         "quantidade",
         "preco_unitario",
@@ -293,13 +294,14 @@ def limpar_dados_vendas(df_vendas):
             df_vendas[coluna],
             errors="coerce",
         )
-        
-        valores_nulos_numericos = df_vendas[
+
+    valores_nulos_numericos = df_vendas[
         colunas_numericas
     ].isnull().sum()
 
     print("\nValores nulos nas colunas numericas:")
     print(valores_nulos_numericos)
+
     
     quantidade_final = len(df_vendas)
 
