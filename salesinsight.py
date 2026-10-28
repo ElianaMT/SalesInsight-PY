@@ -286,7 +286,7 @@ def main():
 
     analisador.transformar()
     
-    
+     
     processar_coluna(
         analisador.df_limpo,
         "receita_total",
@@ -399,11 +399,16 @@ def limpar_dados_vendas(df_vendas):
         "preco_unitario",
     ]
 
+    
     for coluna in colunas_numericas:
         df_vendas[coluna] = pd.to_numeric(
             df_vendas[coluna],
             errors="coerce",
         )
+
+    df_vendas["quantidade"] = df_vendas["quantidade"].astype("Int64")
+    df_vendas["preco_unitario"] = df_vendas["preco_unitario"].astype(float)
+
 
     valores_nulos_numericos = df_vendas[
         colunas_numericas
