@@ -88,7 +88,7 @@ A função `gerar_dataset_vendas()` cria um conjunto de dados sintético com inf
 
 ### 7.2. Inspeção e limpeza
 
-As funções `inspecionar_dados()` e `limpar_dados_vendas()` permitem examinar a estrutura dos dados, identificar valores nulos e tratar datas inválidas e colunas numéricas e textuais.
+As funções `inspecionar_dados()` e `limpar_dados_vendas()` permitem examinar a estrutura dos dados, identificar valores nulos, remover registros com datas inválidas, limpar espaços em campos textuais e converter as colunas numéricas para os tipos apropriados.
 
 ### 7.3. Transformação dos dados
 
