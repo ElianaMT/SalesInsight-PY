@@ -156,6 +156,11 @@ def analisar(self):
         self.clientes = segmentar_clientes(self.df_limpo)
 
         return self.metricas, self.clientes
+    
+def visualizar(self):
+        """Gera os gráficos de análise de vendas."""
+
+        gerar_graficos_vendas(self.df_limpo)
 
 def main():
     print("SalesInsight PY - Análise de Dados de Vendas")
