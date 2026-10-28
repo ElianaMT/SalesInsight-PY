@@ -120,13 +120,13 @@ def exportar_resultados(metricas, clientes, estatisticas):
 class AnalisadorDeVendas:
     """Organiza o fluxo de análise de dados de vendas."""
 
-    def __init__(self):
+def __init__(self):
         self.df_bruto = None
         self.df_limpo = None
         self.metricas = None
         self.clientes = None
         
-    def carregar(self, caminho="vendas.csv"):
+def carregar(self, caminho="vendas.csv"):
         """Carrega os dados de vendas e retorna o DataFrame original."""
 
         self.df_bruto = gerar_dataset_vendas()
@@ -138,6 +138,15 @@ class AnalisadorDeVendas:
         )
 
         return self.df_bruto
+    
+def transformar(self):
+        """Limpa e transforma os dados de vendas."""
+
+        self.df_limpo = limpar_dados_vendas(self.df_bruto)
+
+        self.df_limpo = transformar_dados_vendas(self.df_limpo)
+
+        return self.df_limpo
 
 def main():
     print("SalesInsight PY - Análise de Dados de Vendas")
