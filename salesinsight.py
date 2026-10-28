@@ -514,7 +514,10 @@ def gerar_graficos_vendas(df_vendas):
     plt.xticks(rotation=45)
     plt.tight_layout()
 
-    plt.savefig("outputs/graficos/receita_por_mes.png")
+    plt.savefig(
+    "outputs/graficos/receita_por_mes.png",
+    dpi=150
+)
     plt.close()       
     
     top_produtos = (
@@ -537,7 +540,10 @@ def gerar_graficos_vendas(df_vendas):
     plt.xticks(rotation=45)
     plt.tight_layout()
 
-    plt.savefig("outputs/graficos/top_produtos.png")
+    plt.savefig(
+    "outputs/graficos/top_produtos.png",
+    dpi=150
+)
     plt.close()
     
     
