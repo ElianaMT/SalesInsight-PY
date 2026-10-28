@@ -180,104 +180,62 @@ def resumo(self):
         print(self.clientes["segmento"].value_counts())
 
 def main():
+    """Executa o fluxo principal da análise de vendas."""
+
     print("SalesInsight PY - Análise de Dados de Vendas")
 
-    df_vendas = gerar_dataset_vendas()
+    analisador = AnalisadorDeVendas()
 
-    print(df_vendas.head())
-    print(f"\nQuantidade de registros: {len(df_vendas)}")
+    analisador.carregar("vendas.csv")
 
-    df_vendas.to_csv(
-        "vendas.csv",
-        index=False,
-        encoding="utf-8-sig",
+    print(analisador.df_bruto.head())
+    print(
+        f"\nQuantidade de registros: "
+        f"{len(analisador.df_bruto)}"
     )
 
-    print("\nDataset de vendas gerado com sucesso!")
-    print("Arquivo gerado: vendas.csv")
+    inspecionar_dados(analisador.df_bruto)
 
-    inspecionar_dados(df_vendas)
-    
-    df_vendas = limpar_dados_vendas(df_vendas)
+    analisador.transformar()
 
-    df_vendas = transformar_dados_vendas(df_vendas) 
-    
-    
-    df_vendas = processar_coluna(
-        df_vendas,
+    processar_coluna(
+        analisador.df_limpo,
         "receita_total",
         lambda x: round(x / 1000, 2),
-        nome_saida="receita_em_milhares",
+        "receita_em_milhares"
     )
 
-    df_vendas = processar_coluna(
-        df_vendas,
+    processar_coluna(
+        analisador.df_limpo,
         "quantidade",
         lambda q: "Alto Volume" if q > 5 else "Baixo Volume",
-        nome_saida="perfil_volume",
-    )
-    
-    
-    print("\nReceita em milhares:")
-    print(
-        df_vendas[
-            ["receita_total", "receita_em_milhares"]
-        ].head()
+        "perfil_volume"
     )
 
-    print("\nPerfil de volume:")
-    print(
-        df_vendas[
-            ["quantidade", "perfil_volume"]
-        ].head()
-    )
+    analisador.analisar()
 
-
-
-    print("\nReceita total por venda:")
-    print(df_vendas[["id_venda", "quantidade", "preco_unitario", "receita_total"]].head())    
-    df_vendas.to_csv(
-        "vendas_limpo.csv",
-        index=False,
-        encoding="utf-8-sig",
-    )
-    
-    print("\nNome do mes da venda:")
-    print(df_vendas[["mes", "mes_nome"]].head())
-    
-    print("\nMes da venda:")
-    print(df_vendas[["data_venda", "mes"]].head())
-    
-    print("\nTrimestre da venda:")
-    print(df_vendas[["data_venda", "trimestre"]].head())
-    
-    print("\nAno da venda:")
-    print(df_vendas[["data_venda", "ano"]].head())
-    
-    print("\nFaixa de receita por venda:")
-    print(
-        df_vendas[
-            ["receita_total", "faixa_receita_item"]
-        ].head()
-    )
-    
-    metricas = calcular_metricas_vendas(df_vendas)
-    clientes = segmentar_clientes(df_vendas)
-    
     estatisticas = {
-        "quantidade_vendas": len(df_vendas),
-        "receita_total": df_vendas["receita_total"].sum(),
-        "ticket_medio": df_vendas["receita_total"].mean(),
+        "total_registros": len(analisador.df_limpo),
+        "receita_total": float(
+            analisador.df_limpo["receita_total"].sum()
+        ),
+        "quantidade_produtos": int(
+            analisador.df_limpo["produto"].nunique()
+        ),
+        "quantidade_clientes": int(
+            analisador.df_limpo["cliente"].nunique()
+        )
     }
-    
-    
-    exportar_resultados(metricas, clientes, estatisticas)
 
+    exportar_resultados(
+        analisador.metricas,
+        analisador.clientes,
+        estatisticas
+    )
 
-    gerar_graficos_vendas(df_vendas)
+    analisador.visualizar()
 
-    print("\nDados limpos exportados com sucesso!")
-    print("Arquivo gerado: vendas_limpo.csv")
+    analisador.resumo()
     
 def inspecionar_dados(df_vendas):
     print("Dimensoes do conjunto de dados:")
