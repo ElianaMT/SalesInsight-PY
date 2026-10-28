@@ -337,9 +337,7 @@ def inspecionar_dados(df_vendas):
     Returns:
         None. Exibe informações sobre os dados.
     """
-
-    print("Dimensoes do conjunto de dados:")
-
+   
     print("Dimensoes do conjunto de dados:")
     print(df_vendas.shape)
 
