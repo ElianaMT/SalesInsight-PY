@@ -120,13 +120,13 @@ def exportar_resultados(metricas, clientes, estatisticas):
 class AnalisadorDeVendas:
     """Organiza o fluxo de análise de dados de vendas."""
 
-def __init__(self):
+    def __init__(self):
         self.df_bruto = None
         self.df_limpo = None
         self.metricas = None
         self.clientes = None
-        
-def carregar(self, caminho="vendas.csv"):
+
+    def carregar(self, caminho="vendas.csv"):
         """Carrega os dados de vendas e retorna o DataFrame original."""
 
         self.df_bruto = gerar_dataset_vendas()
@@ -139,7 +139,7 @@ def carregar(self, caminho="vendas.csv"):
 
         return self.df_bruto
     
-def transformar(self):
+    def transformar(self):
         """Limpa e transforma os dados de vendas."""
 
         self.df_limpo = limpar_dados_vendas(self.df_bruto)
@@ -148,7 +148,7 @@ def transformar(self):
 
         return self.df_limpo
     
-def analisar(self):
+    def analisar(self):
         """Calcula as métricas de vendas e segmenta os clientes."""
 
         self.metricas = calcular_metricas_vendas(self.df_limpo)
@@ -157,12 +157,12 @@ def analisar(self):
 
         return self.metricas, self.clientes
     
-def visualizar(self):
+    def visualizar(self):
         """Gera os gráficos de análise de vendas."""
 
         gerar_graficos_vendas(self.df_limpo)
         
-def resumo(self):
+    def resumo(self):
         """Apresenta um resumo final da análise de vendas."""
 
         print("\nResumo da Análise de Vendas")
@@ -375,47 +375,67 @@ def transformar_dados_vendas(df_vendas):
 
     return df_vendas
 
+
 def calcular_metricas_vendas(df_vendas):
+    """Calcula as métricas agregadas das vendas."""
+
     vendas_por_mes = (
-        df_vendas.groupby(["ano", "mes", "mes_nome"])["receita_total"]
-        .sum()
+        df_vendas.groupby(["ano", "mes", "mes_nome"])
+        .agg(
+            receita_total=("receita_total", "sum"),
+            quantidade=("quantidade", "sum"),
+            n_vendas=("id_venda", "nunique")
+        )
         .reset_index()
+        .sort_values(["ano", "mes"])
     )
 
-    print("\nReceita total por mes:")
-    print(vendas_por_mes)
-    
     vendas_por_produto = (
         df_vendas.groupby("produto")["receita_total"]
         .sum()
         .sort_values(ascending=False)
         .head(5)
+        .reset_index()
     )
 
-    print("\nTop 5 produtos por receita:")
-    print(vendas_por_produto) 
-    
     vendas_por_categoria = (
         df_vendas.groupby("categoria")["receita_total"]
         .sum()
         .sort_values(ascending=False)
+        .reset_index()
     )
 
-    print("\nReceita total por categoria:")
-    print(vendas_por_categoria)
-    
     vendas_por_regiao = (
-            df_vendas.groupby("regiao")["receita_total"]
-            .sum()
-            .sort_values(ascending=False)
+        df_vendas.groupby("regiao")
+        .agg(
+            receita_total=("receita_total", "sum"),
+            ticket_medio=("receita_total", "mean")
         )
-    
-    print("\nReceita total por regiao:")
-    print(vendas_por_regiao)
-    
-    return {
+        .reset_index()
+        .sort_values("receita_total", ascending=False)
+    )
+
+    metricas = {
         "por_mes": vendas_por_mes,
+        "top_produtos": vendas_por_produto,
+        "por_categoria": vendas_por_categoria,
+        "por_regiao": vendas_por_regiao
     }
+
+    print("\n=== RECEITA, QUANTIDADE E VENDAS POR MES ===")
+    print(vendas_por_mes.to_string(index=False))
+
+    print("\n=== TOP 5 PRODUTOS POR RECEITA ===")
+    print(vendas_por_produto.to_string(index=False))
+
+    print("\n=== RECEITA POR CATEGORIA ===")
+    print(vendas_por_categoria.to_string(index=False))
+
+    print("\n=== RECEITA E TICKET MEDIO POR REGIAO ===")
+    print(vendas_por_regiao.to_string(index=False))
+
+    return metricas
+
     
 def segmentar_clientes(df_vendas):
 
