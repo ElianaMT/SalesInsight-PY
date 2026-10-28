@@ -459,7 +459,9 @@ def transformar_dados_vendas(df_vendas):
 
     df_vendas["mes_nome"] = df_vendas["mes"].map(nomes_meses)
     
-    df_vendas["trimestre"] = df_vendas["data_venda"].dt.quarter
+    df_vendas["trimestre"] = (
+    "Q" + df_vendas["data_venda"].dt.quarter.astype(str)
+)
     
     df_vendas["ano"] = df_vendas["data_venda"].dt.year
     
