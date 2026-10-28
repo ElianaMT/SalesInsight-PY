@@ -277,7 +277,6 @@ def main():
 
     analisador.carregar("vendas.csv")
 
-    print(analisador.df_bruto.head())
     print(
         f"\nQuantidade de registros: "
         f"{len(analisador.df_bruto)}"
