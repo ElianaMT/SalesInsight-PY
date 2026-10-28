@@ -147,6 +147,15 @@ def transformar(self):
         self.df_limpo = transformar_dados_vendas(self.df_limpo)
 
         return self.df_limpo
+    
+def analisar(self):
+        """Calcula as métricas de vendas e segmenta os clientes."""
+
+        self.metricas = calcular_metricas_vendas(self.df_limpo)
+
+        self.clientes = segmentar_clientes(self.df_limpo)
+
+        return self.metricas, self.clientes
 
 def main():
     print("SalesInsight PY - Análise de Dados de Vendas")
