@@ -566,8 +566,7 @@ def segmentar_clientes(df_vendas):
     Returns:
         DataFrame com o gasto total e o segmento de cada cliente.
     """
-    """Agrupa os clientes e classifica por nível de gasto."""
-
+    
     receita_por_cliente = (
         df_vendas.groupby("cliente")["receita_total"]
         .sum()
