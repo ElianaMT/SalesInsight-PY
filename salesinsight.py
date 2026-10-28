@@ -393,37 +393,47 @@ def limpar_dados_vendas(df_vendas):
             .str.strip()
         )
 
+    
     colunas_numericas = [
         "id_venda",
         "quantidade",
         "preco_unitario",
     ]
 
-    
+    valores_invalidos = {}
+
     for coluna in colunas_numericas:
-        df_vendas[coluna] = pd.to_numeric(
-            df_vendas[coluna],
+        valores_originais = df_vendas[coluna]
+
+        valores_convertidos = pd.to_numeric(
+            valores_originais,
             errors="coerce",
         )
+
+        valores_invalidos[coluna] = (
+            valores_convertidos.isna()
+            & valores_originais.notna()
+        ).sum()
+
+        df_vendas[coluna] = valores_convertidos
 
     df_vendas["quantidade"] = df_vendas["quantidade"].astype("Int64")
     df_vendas["preco_unitario"] = df_vendas["preco_unitario"].astype(float)
 
-
-    valores_nulos_numericos = df_vendas[
-        colunas_numericas
-    ].isnull().sum()
+    print("\nValores invalidos durante a conversao numerica:")
+    for coluna, quantidade in valores_invalidos.items():
+        print(f"{coluna}: {quantidade}")
 
     print("\nValores nulos nas colunas numericas:")
-    print(valores_nulos_numericos)
+    print(df_vendas[colunas_numericas].isnull().sum())
 
-    
     quantidade_final = len(df_vendas)
 
     print("\nRelatorio de limpeza:")
     print(f"Quantidade inicial de registros: {quantidade_inicial}")
     print(f"Registros removidos por data invalida: {quantidade_removida}")
     print(f"Quantidade final de registros: {quantidade_final}")
+
     
     return df_vendas
 
