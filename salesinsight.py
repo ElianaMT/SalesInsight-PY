@@ -437,16 +437,18 @@ def calcular_metricas_vendas(df_vendas):
     return metricas
 
     
+
 def segmentar_clientes(df_vendas):
+    """Agrupa os clientes e classifica por nível de gasto."""
 
     receita_por_cliente = (
         df_vendas.groupby("cliente")["receita_total"]
         .sum()
-        .reset_index()
-    ) 
-    
+        .reset_index(name="total_gasto")
+    )
+
     receita_por_cliente["segmento"] = receita_por_cliente[
-        "receita_total"
+        "total_gasto"
     ].apply(
         lambda receita: (
             "Bronze" if receita < 5000
@@ -455,11 +457,19 @@ def segmentar_clientes(df_vendas):
         )
     )
 
+    clientes_top_10 = receita_por_cliente.sort_values(
+        "total_gasto",
+        ascending=False
+    ).head(10)
 
-    print("\nSegmentacao de clientes:")
-    print(receita_por_cliente)
+    print("\n=== TOP 10 CLIENTES POR GASTO ===")
+    print(clientes_top_10.to_string(index=False))
+
+    print("\n=== DISTRIBUICAO DE CLIENTES POR SEGMENTO ===")
+    print(receita_por_cliente["segmento"].value_counts())
 
     return receita_por_cliente
+
 
 def gerar_graficos_vendas(df_vendas):
     os.makedirs("outputs/graficos", exist_ok=True)    
