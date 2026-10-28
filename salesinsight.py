@@ -681,11 +681,7 @@ def gerar_graficos_vendas(df_vendas):
 )
     plt.close()
     
-    
-    
-    fig, ax = plt.subplots(figsize=(10, 5))
-
-
+          
     categorias = df_vendas["categoria"].unique()
     cores = plt.cm.Set2.colors
 
