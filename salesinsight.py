@@ -760,7 +760,7 @@ def gerar_graficos_vendas(df_vendas):
     eixos[1, 0].legend(title="Categoria")
 
 
-    eixos[1, 0].set_title("Quantidade versus receita")
+    eixos[1, 0].set_title("Quantidade versus receita total por categoria")
     eixos[1, 0].set_xlabel("Quantidade")
     eixos[1, 0].set_ylabel("Receita total")
     
