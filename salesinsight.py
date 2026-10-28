@@ -87,7 +87,17 @@ def gerar_dataset_vendas(quantidade_vendas=200, semente=42):
 
 
 def processar_coluna(df, coluna, funcao_transformacao, nome_saida=None):
-    """Aplica uma função de transformação a uma coluna do DataFrame."""
+    """Aplica uma função de transformação a uma coluna do DataFrame.
+
+    Args:
+        df: DataFrame que contém os dados.
+        coluna: Nome da coluna que será transformada.
+        funcao_transformacao: Função aplicada aos valores da coluna.
+        nome_saida: Nome opcional da nova coluna criada.
+
+    Returns:
+        DataFrame com a nova coluna transformada.
+    """
 
     nome_saida = nome_saida or f"{coluna}_transformado"
 
@@ -99,7 +109,16 @@ def processar_coluna(df, coluna, funcao_transformacao, nome_saida=None):
 
 
 def exportar_resultados(metricas, clientes, estatisticas):
-    """Exporta métricas e estatísticas para arquivos CSV e JSON."""
+    """Exporta métricas e estatísticas para arquivos CSV e JSON.
+
+    Args:
+        metricas: Dicionário com as métricas de vendas.
+        clientes: DataFrame com a segmentação dos clientes.
+        estatisticas: Dicionário com as estatísticas gerais.
+
+    Returns:
+        None.
+    """
 
     
     os.makedirs("outputs", exist_ok=True)
@@ -141,13 +160,28 @@ class AnalisadorDeVendas:
     """Organiza o fluxo de análise de dados de vendas."""
 
     def __init__(self):
+        """Inicializa os atributos utilizados na análise de vendas.
+
+    Args:
+        Nenhum, além de self.
+
+    Returns:
+        None. Inicializa os atributos da instância.
+    """
         self.df_bruto = None
         self.df_limpo = None
         self.metricas = None
         self.clientes = None
 
     def carregar(self, caminho="vendas.csv"):
-        """Carrega os dados de vendas e retorna o DataFrame original."""
+        """Gera e salva os dados de vendas em um arquivo CSV.
+
+    Args:
+        caminho: Caminho do arquivo CSV de saída.
+
+    Returns:
+        DataFrame com os dados originais de vendas.
+    """
 
         self.df_bruto = gerar_dataset_vendas()
 
@@ -160,7 +194,14 @@ class AnalisadorDeVendas:
         return self.df_bruto
     
     def transformar(self):
-        """Limpa e transforma os dados de vendas."""
+        """Limpa e transforma os dados de vendas.
+
+    Args:
+        Nenhum, além de self.
+
+    Returns:
+        DataFrame com os dados de vendas limpos e transformados.
+    """
 
         self.df_limpo = limpar_dados_vendas(self.df_bruto)
 
@@ -169,7 +210,14 @@ class AnalisadorDeVendas:
         return self.df_limpo
     
     def analisar(self):
-        """Calcula as métricas de vendas e segmenta os clientes."""
+        """Calcula as métricas de vendas e segmenta os clientes.
+
+    Args:
+        Nenhum, além de self.
+
+    Returns:
+        Tupla com o dicionário de métricas e o DataFrame de clientes.
+    """
 
         self.metricas = calcular_metricas_vendas(self.df_limpo)
 
@@ -178,12 +226,26 @@ class AnalisadorDeVendas:
         return self.metricas, self.clientes
     
     def visualizar(self):
-        """Gera os gráficos de análise de vendas."""
+        """Gera os gráficos para a análise de vendas.
+
+    Args:
+        Nenhum, além de self.
+
+    Returns:
+        None. Salva os gráficos em arquivos PNG.
+    """
 
         gerar_graficos_vendas(self.df_limpo)
         
     def resumo(self):
-        """Apresenta um resumo final da análise de vendas."""
+        """Apresenta um resumo final da análise de vendas.
+
+    Args:
+        Nenhum, além de self.
+
+    Returns:
+        None. Exibe o resumo dos dados e dos segmentos de clientes.
+    """
 
         print("\nResumo da Análise de Vendas")
         print("-" * 35)
@@ -200,7 +262,14 @@ class AnalisadorDeVendas:
         print(self.clientes["segmento"].value_counts())
 
 def main():
-    """Executa o fluxo principal da análise de vendas."""
+    """Executa o fluxo principal da análise de vendas.
+
+    Args:
+        Nenhum.
+
+    Returns:
+        None. Coordena a execução das etapas de análise.
+    """
 
     print("SalesInsight PY - Análise de Dados de Vendas")
 
@@ -259,7 +328,14 @@ def main():
     
 
 def inspecionar_dados(df_vendas):
-    """Exibe as dimensões, colunas, tipos e valores nulos dos dados."""
+    """Inspeciona a estrutura e o conteúdo dos dados de vendas.
+
+    Args:
+        df_vendas: DataFrame com os dados de vendas.
+
+    Returns:
+        None. Exibe informações sobre os dados.
+    """
 
     print("Dimensoes do conjunto de dados:")
 
@@ -288,7 +364,14 @@ def inspecionar_dados(df_vendas):
     print("Arquivo gerado: vendas.csv")
   
 def limpar_dados_vendas(df_vendas):
-    """Limpa os dados de vendas e remove datas inválidas."""
+    """Limpa os dados de vendas e remove datas inválidas.
+
+    Args:
+        df_vendas: DataFrame com os dados originais de vendas.
+
+    Returns:
+        DataFrame com os dados limpos.
+    """
 
     df_vendas = df_vendas.copy()
 
@@ -407,8 +490,12 @@ def transformar_dados_vendas(df_vendas):
 def calcular_metricas_vendas(df_vendas):
     """Calcula métricas agregadas por mês, produto, categoria e região.
 
+    Args:
+        df_vendas: DataFrame com os dados de vendas transformados.
+
     Returns:
-        Dicionário com DataFrames das quatro métricas calculadas.
+        Dicionário com DataFrames das métricas por mês, produto,
+        categoria e região.
     """
 
 
@@ -472,6 +559,14 @@ def calcular_metricas_vendas(df_vendas):
     
 
 def segmentar_clientes(df_vendas):
+    """Agrupa os clientes e classifica por nível de gasto.
+
+    Args:
+        df_vendas: DataFrame com os dados de vendas transformados.
+
+    Returns:
+        DataFrame com o gasto total e o segmento de cada cliente.
+    """
     """Agrupa os clientes e classifica por nível de gasto."""
 
     receita_por_cliente = (
@@ -505,7 +600,14 @@ def segmentar_clientes(df_vendas):
 
 
 def gerar_graficos_vendas(df_vendas):
-    """Gera e salva gráficos de vendas em arquivos PNG."""
+    """Gera e salva gráficos para a análise de vendas.
+
+    Args:
+        df_vendas: DataFrame com os dados de vendas transformados.
+
+    Returns:
+        None. Salva quatro gráficos no formato PNG.
+    """
     os.makedirs("outputs/graficos", exist_ok=True)    
     plt.style.use("seaborn-v0_8-whitegrid")
 
