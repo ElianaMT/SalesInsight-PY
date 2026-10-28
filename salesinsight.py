@@ -428,7 +428,16 @@ def limpar_dados_vendas(df_vendas):
     return df_vendas
 
 def transformar_dados_vendas(df_vendas):
-    """Cria colunas derivadas para a análise das vendas."""
+    
+    """Cria colunas derivadas para a análise das vendas.
+
+    Args:
+        df_vendas: DataFrame com os dados de vendas limpos.
+
+    Returns:
+        DataFrame com as colunas derivadas para análise.
+    """
+
 
     df_vendas = df_vendas.copy()
 
