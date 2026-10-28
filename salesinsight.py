@@ -472,15 +472,15 @@ def transformar_dados_vendas(df_vendas):
         df_vendas["receita_total"] >= 2000,
     ]
 
-    faixas = [
-        "Baixa",
-        "Media",
-        "Alta",
-    ]
+    categorias = [
+    "Baixo Valor",
+    "Medio Valor",
+    "Alto Valor",
+]
 
     df_vendas["faixa_receita_item"] = np.select(
         condicoes,
-        faixas,
+        categorias,
         default="Baixa",
     )
 
